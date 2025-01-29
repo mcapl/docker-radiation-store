@@ -1,5 +1,7 @@
 FROM tiryoh/ros-desktop-vnc:noetic
 
+ARG TARGETARCH
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install various useful tools
@@ -33,13 +35,12 @@ ENV HOME=/home/mcapl-ros
 ## Seem to need to set the locale to get mvn and ant to recoginse some characters
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
     locale-gen
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US.en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US.en
+ENV LC_ALL=en_US.UTF-8
 
 ## Install javarosbridge
-
-ENV JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-1.11.0-openjdk-$TARGETARCH
 
 WORKDIR $HOME
 
